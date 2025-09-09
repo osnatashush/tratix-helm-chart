@@ -4,7 +4,7 @@ description: A Helm chart for Kubernetes
 maintainers:
   - name: osnat ashush
     email: osnat529@gmail.com
-
+    url: https://osnatashush.io
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
