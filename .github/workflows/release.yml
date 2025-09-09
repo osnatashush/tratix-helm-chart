@@ -4,17 +4,15 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - README.md
-      - .github/**
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+    paths:
+      - "charts/**"
 
 jobs:
   release:
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

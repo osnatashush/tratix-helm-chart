@@ -24,3 +24,12 @@ version: 0.0.3
 # incremented each time you make changes to the application. Versions are expected to
 # follow Semantic Versioning (https://semver.org/)
 # appVersion: "1.0.0"
+
+keywords:
+  - car
+  - data
+  - stateful
+
+home: https://github.com/osnatashush/tratix-helm-chart
+sources:
+  - https://github.com/osnatashush/tratix-helm-chart
