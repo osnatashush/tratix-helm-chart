@@ -4,7 +4,7 @@ description: A Helm chart for Kubernetes
 maintainers:
   - name: osnat ashush
     email: osnat529@gmail.com
-    url: https://github.com/osnatashush/tratix-helm-chart
+    url: https://github.com/osnatashush
 
 # A chart can be either an 'application' or a 'library' chart.
 #
