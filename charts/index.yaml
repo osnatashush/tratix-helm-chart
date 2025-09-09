@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  car-data-updater-stateful:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-09-09T16:52:01.637553+03:00"
+    description: A Helm chart for Kubernetes
+    digest: 04b5f48036229322f5c9a3e165237c66f8ef43fd8fe2369c564b3f87ad943c73
+    maintainers:
+    - email: osnat529@gmail.com
+      name: osnat ashush
+      url: https://github.com/osnatashush
+    name: car-data-updater-stateful
+    type: application
+    urls:
+    - https://osnatashush.github.io/tratix-helm-chart/charts/car-data-updater-stateful-0.0.1.tgz
+    version: 0.0.1
+generated: "2025-09-09T16:52:01.637048+03:00"
