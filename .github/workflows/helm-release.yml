@@ -30,13 +30,6 @@ jobs:
         with:
           version: v3.12.1
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.5.0
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        with:
-          charts_dir: apps
-          config: cr.yaml
 
       - name: Package and Index Charts
         run: |
@@ -55,8 +48,6 @@ jobs:
           # Generate index
           helm repo index charts --url https://osnatashush.github.io/tratix-helm-chart/charts
           
-          # Copy to root for GitHub Pages
-          cp charts/index.yaml .
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
