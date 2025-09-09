@@ -1,0 +1,69 @@
+# Default values for app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Application identifier - used to distinguish between different apps
+appName: ""
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  containerPort: 80
+  args: []
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+secrets:
+  enabled: false
+  secretStoreRef:
+    name: aws-secret-store
+    kind: ClusterSecretStore
+  refreshInterval: 15m
+  secretsDir: /etc/secrets
+  toEnv: []
+  # - secret: secret-name
+  #   env: ENV_VAR_NAME
+  toFiles: []
+  # - name: secret-name
+  toEnvironments: []
+  # - name: secret-name
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1000Mi
+  requests:
+    cpu: 1000m
+    memory: 1000Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+env: {}
+
+healthCheck:
+  enabled: false

@@ -1,0 +1,9 @@
+# Chart Releaser configuration
+owner: osnatashush
+git-repo: tratix-helm-chart
+charts-dir: apps
+target-branch: gh-pages
+index-dir: .
+package-dir: .
+pages-branch: gh-pages
+pages-index-path: charts/index.yaml
