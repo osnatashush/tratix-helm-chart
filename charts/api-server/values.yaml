@@ -1,0 +1,124 @@
+# Default values for app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Application identifier - used to distinguish between different apps
+appName: ""
+
+replicaCount: 1
+
+image:
+  repository: 110313733640.dkr.ecr.eu-west-1.amazonaws.com/api-server
+  pullPolicy: IfNotPresent
+  containerPort: 8080
+  args: []
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "4c06e9f695bf37217497497010674a5a2eacd644cb"
+
+secrets:
+  enabled: true
+  secretStoreRef:
+    name: aws-secret-store
+    kind: ClusterSecretStore
+  refreshInterval: 15m
+  secretsDir: /etc/secrets
+  toEnv: []
+  # - secret: secret-name
+  #   env: ENV_VAR_NAME
+  toFiles: []
+  # - name: secret-name
+  toEnvironments:
+    - name: api-server/develop/docdb-rw-credentials
+    - name: api-server/develop/influx-token
+    - name: api-server/develop/jwt_secret
+    - name: api-server/develop/refresh_token_secret
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+env:
+  DB_ENV: develop
+  DB_CREDS_ID: api-server/develop/docdb-rw-credentials
+  PROJECT_SLUG: api-server
+  PORT: '8080'
+  NODE_ENV: develop
+  S3_BUCKET_NAME: dev-bucket-eks-shared
+  AWS_REGION: eu-west-1
+  INFLUX_BUCKET: tratix-dev
+  INFLUX_URL: https://tratix-influx-dev-jgw6wtc4ibcgu6.eu-west-1.timestream-influxdb.amazonaws.com:8086
+  INFLUX_ORG: tratix-dev
+  INFLUX_TOKEN_ID: api-server/develop/influx-token
+  JWT_SECRET_ID: api-server/develop/jwt_secret
+  REFRESH_TOKEN_SECRET_ID: api-server/develop/refresh_token_secret
+  SAFE_PLACE_API_URL: http://geo-routes-api-service.default.svc
+  SENTRY_DSN: https://c39f2f0bb12b302b1d5c1aeef35c09d7@o4509718114467840.ingest.de.sentry.io/4509723655471184
+
+healthCheck:
+  enabled: true
+  healthCheckType: tcp
+  healthCheckPort: 8080
+  initialDelaySeconds: 10
+  timeoutSeconds: 1
+  periodSeconds: 5
+  successThreshold: 1
+  failureThreshold: 3
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8080
+  nlb:
+    internal: true
+
+ingress:
+  enabled: true
+  className: "alb"
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:110313733640:certificate/c0f32647-09a1-44d9-bfde-454c9d357729
+    alb.ingress.kubernetes.io/target-type: "ip"
+  hosts:
+    - host: api-develop-dev.trtix.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - api-develop-dev.trtix.com
+      secretName: cloudflare-origin-trtix-cert
+
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::110313733640:role/api-server.tratix.sa.dev
+  name: "api-server-sa"
