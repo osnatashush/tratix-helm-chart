@@ -13,9 +13,9 @@ jobs:
           server_address: smtp.gmail.com # your SMTP server
           server_port: 465 # usually 465 for SSL/TLS
           secure: true # use TLS/SSL
-          username: Osnat529@gmail.com
+          username: osnat529@gmail.com
           password: ${{ secrets.EMAIL_PASS }}
           subject: "GitHub Actions Drift Detection"
-          to: "osnat529@gmail.com" # list of recipients, comma separated
+          to: "o.ashush@trtix.com" # list of recipients, comma separated
           from: "Tratix Terraform <noreply@example.com>"
           body: "🚨Github action Drift was failed🚨"
